@@ -73,7 +73,7 @@ class ProjectState {
 		};
 		this.projects.push(newProject);
 		for (const listener of this.listeners) {
-			listener(...this.projects);
+			listener(this.projects.slice());
 		}
 	}
 }
@@ -85,10 +85,9 @@ class ProjectList {
 	templateElement!: HTMLTemplateElement;
 	hostElement!: HTMLDivElement;
 	element!: HTMLElement;
-	assignedProjects: any[];
+	assignedProjects: any[] = [];
 
 	constructor(private type: "active" | "finished") {
-		this.assignedProjects = [];
 		this.domInitGetters();
 		this.importContent();
 		this.attach();
